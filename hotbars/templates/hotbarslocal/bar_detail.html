@@ -1,0 +1,96 @@
+{% extends "hotbarslocal/base.html" %}
+
+{% block content %}
+<h1>
+  {{ bar.name }}
+  {% if user == bar.user %}
+    (<a href="{% url 'hotbarslocal:bar_edit' bar.id %}">edit</a>)
+  {% endif %}
+</h1>
+
+<h2>Address:</h2>
+
+<p>
+  {{ bar.street }}, {{ bar.number }} <br/>
+  {{ bar.zipcode }} {{ bar.city }} <br/>
+  {{ bar.stateOrProvince }} ({{ bar.country }})
+</p>
+
+<h2>Drinks
+  {% if user %}
+    (<a href="{% url 'hotbarslocal:drink_create' bar.id %}">add</a>)
+  {% endif %}
+</h2>
+
+<ul>
+  {% for drink in bar.drinks.all %}
+    <li><a href="{% url 'hotbarslocal:drink_detail' bar.id drink.id %}">
+    {{ drink.name }}</a></li>
+  {% empty %}<li>Sorry, no drinks for this bar yet.</li>
+  {% endfor %}
+</ul>
+
+
+
+
+
+
+
+
+
+<h3>Add Review</h3>
+
+<form action="{% url 'hotbarslocal:review_create' bar.id %}" method="post">
+  {% csrf_token %}
+
+  Message: <textarea name="comment" id="comment" rows="4"></textarea>
+  <p>Rating:</p>
+  <p>
+    {% for rate in RATING_CHOICES %}
+      <input type="radio" name="rating" id="rating{{ forloop.counter }}" value="{{ rate.0 }}" />
+      <label for="choice{{ forloop.counter }}">{{ rate.1 }} star{{rate.0|pluralize }}</label>
+      <br/>
+    {% endfor %}
+  </p>
+  <input type="submit" value="Review" />
+</form>
+
+
+
+<h2>Reviews: </h2>
+
+
+     <table style="width:100%">
+          <tr>
+      <th>Rating</th>
+
+      <th>Comments</th>
+      <th>Posted by: </th>
+  </tr>
+  {% for review in bar.barreview_set.all %}
+
+
+
+
+        <tr>
+
+
+        <td>{{ review.rating }} star{{ review.rating|pluralize }}</td>
+            <td>{{ review.comment }}</td>
+        <td>{{ review.user }}</td>
+
+        </tr>
+ {% endfor %}
+</table>
+
+
+
+
+
+{% endblock %}
+
+{% block footer %}
+
+Created by {{ bar.user }}
+
+{% endblock %}

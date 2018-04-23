@@ -1,0 +1,28 @@
+{% extends "hotbarslocal/base.html" %}
+
+{% block content %}
+
+<h1>
+  {{ drink.name }}
+  {% if user == dish.user %}
+    (<a href="{% url 'hotbarslocal:drink_edit' drink.bar.id drink.id %}">edit</a>)
+  {% endif %}
+</h1>
+
+<p>{{ drink.description }}</p>
+
+{% if drink.image %}
+  <p><img src="{{ drink.image.url }}"/></p>
+{% endif %}
+
+<p>Served by:
+  <a href="{% url 'hotbarslocal:bar_detail' drink.bar.id %}">
+    {{ drink.bar.name}}
+  </a>
+</p>
+
+{% endblock %}
+
+{% block footer %}
+  Created by {{ drink.user }} on {{ drink.date }}
+{% endblock %}

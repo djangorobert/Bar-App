@@ -1,0 +1,13 @@
+{% extends "hotbarslocal/base.html" %}
+
+{% block content %}
+
+<form method="post" enctype="multipart/form-data" action="">
+  {% csrf_token %}
+  <table>
+    {{ form }}
+  </table>
+  <input type="submit" class="btn btn-primary" value="Submit"/>
+</form>
+
+{% endblock %}

@@ -1,0 +1,30 @@
+{% extends "hotbarslocal/base.html" %}
+
+{% block content %}
+<h1>
+
+  Popular Bars:
+    {% if user %}<a href="{% url 'hotbarslocal:bar_create' %}" class="btn btn-primary" type="button">Add</a>{% endif %}
+
+
+</h1>
+
+
+
+<table>
+
+  <tr>
+    <th>Bar Name:</th>
+    {% for bar in latest_bar_list %}
+  </tr>
+  <tr>
+    <td><a href="{% url 'hotbarslocal:bar_detail' bar.id %}">
+    {{ bar.name }}</a></td>
+  {% empty %}<li>Sorry, no Bar registered yet.</li>
+  </tr>
+
+</table>
+{% endfor %}
+
+
+{% endblock %}
