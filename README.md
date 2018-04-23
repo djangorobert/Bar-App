@@ -7,6 +7,7 @@ A Bar app to see Popular Bars being posted by users along with a review
 Virtualenv 'yournewvirtualenv'
 cd 'yournewvirtualenv'
 pip install django
+Pillow==5.1.0
 
 
 #activate your virtualenv
