@@ -4,7 +4,7 @@
 
 <h1>
   {{ drink.name }}
-  {% if user == dish.user %}
+  {% if user == drink.user %}
     (<a href="{% url 'hotbarslocal:drink_edit' drink.bar.id drink.id %}">edit</a>)
   {% endif %}
 </h1>
